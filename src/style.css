@@ -1,0 +1,95 @@
+body {
+  font-family: "Noto Sans", sans-serif;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 18px;
+  display: inline;
+}
+
+p {
+  font-weight: 300;
+  display: inline;
+}
+
+a {
+  text-decoration: none;
+  color: #565656;
+}
+
+ul {
+  display: inline;
+}
+
+li {
+  list-style: none;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 130%;
+  color: #565656;
+}
+
+form {
+  margin-bottom: 30px;
+}
+
+.temp {
+  display: inline;
+  font-size: 14px;
+  font-weight: 400;
+  position: relative;
+  top: -24px;
+  margin-left: 4px;
+}
+
+#fahrenheit {
+  margin-left: 0px;
+}
+
+.float-left {
+  display: inline;
+}
+
+.weather-app {
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  padding: 20px;
+  padding-bottom: 10px;
+  width: 600px;
+  margin: 30px auto;
+}
+
+.about {
+  text-align: right;
+}
+
+.data {
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+.all-temp {
+  display: inline;
+  color: #494949;
+  font-weight: 400;
+  font-size: 48px;
+  margin-left: 10px;
+  margin-bottom: 0px;
+}
+
+.weather-date {
+  display: inline-flex;
+  position: relative;
+  top: -10px;
+}
+
+.weather-about {
+  position: relative;
+  top: -16px;
+}
+
+.currentButton {
+  background-color: rgb(112, 121, 255);
+  border-color: rgb(102, 112, 255);
+}
