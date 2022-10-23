@@ -50,11 +50,17 @@ function changeWeather(response) {
   let pressure = response.data.main.pressure;
   let weatherFirst = response.data.weather[0].description;
   const weather = weatherFirst.charAt(0).toUpperCase() + weatherFirst.slice(1);
+  let icon = response.data.weather[0].icon;
+  let iconElement = document.querySelector("#weather-icon");
   document.querySelector("#value-of-temp").innerHTML = temp;
   document.querySelector("#value-of-pressure").innerHTML = pressure;
   document.querySelector("#value-of-humidity").innerHTML = humidity;
   document.querySelector("#value-of-wind").innerHTML = wind;
   document.querySelector("#value-of-weather").innerHTML = weather;
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${icon}@2x.png`
+  );
 }
 
 function currentTemp(response) {
@@ -65,12 +71,17 @@ function currentTemp(response) {
   let wind = response.data.wind.speed;
   let weatherFirst = response.data.weather[0].description;
   const weather = weatherFirst.charAt(0).toUpperCase() + weatherFirst.slice(1);
+  let iconElement = document.querySelector("#weather-icon");
   document.querySelector("h2").innerHTML = city;
   document.querySelector("#value-of-pressure").innerHTML = pressure;
   document.querySelector("#value-of-temp").innerHTML = temp;
   document.querySelector("#value-of-humidity").innerHTML = humidity;
   document.querySelector("#value-of-wind").innerHTML = wind;
   document.querySelector("#value-of-weather").innerHTML = weather;
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
 }
 
 function retrievePosition(position) {
