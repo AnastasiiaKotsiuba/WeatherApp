@@ -43,8 +43,11 @@ function getWeather(value) {
   axios.get(apiUrl).then(changeWeather);
 }
 
+let tempForChanges = null;
+
 function changeWeather(response) {
-  let temp = Math.round(response.data.main.temp);
+  tempForChanges = response.data.main.temp;
+  let temp = Math.round(tempForChanges);
   let humidity = response.data.main.humidity;
   let wind = response.data.wind.speed;
   let pressure = response.data.main.pressure;
@@ -98,21 +101,22 @@ function search() {
 let button = document.querySelector("#current-button");
 button.addEventListener("click", search);
 
-//let fahrenheit = document.querySelector("#fahrenheit");
-//fahrenheit.addEventListener("click", changeOnFahrenheits);
+let tempForCelsius = null;
 
-//function changeOnFahrenheits(response) {
-//  let temp = Math.round(response.data.main.temp);
-//  let temperature = document.querySelector("#value-of-temp");
-//  let fahrenheitClick = Math.round(temp * 1.8 + 32);
-//  temperature.innerHTML = fahrenheitClick;
-//}
+function changeOnFahrenheits() {
+  let temperature = document.querySelector("#value-of-temp");
+  let fahrenheitClick = Math.round((tempForChanges * 9) / 5 + 32);
+  temperature.innerHTML = fahrenheitClick;
+  tempForCelsius = fahrenheitClick;
+}
 
-//function changeOneCelsius() {
-//  let temp = document.querySelector("#value-of-temp");
-//  let celsiusClick = Math.round((73 - 32) * 0.5556);
-//  temp.innerHTML = celsiusClick;
-//}
+let fahrenheit = document.querySelector("#fahrenheit");
+fahrenheit.addEventListener("click", changeOnFahrenheits);
 
-//let celsius = document.querySelector("#celsius");
-//celsius.addEventListener("click", changeOneCelsius);
+function changeOneCelsius() {
+  let temp = document.querySelector("#value-of-temp");
+  temp.innerHTML = Math.round(tempForChanges);
+}
+
+let celsius = document.querySelector("#celsius");
+celsius.addEventListener("click", changeOneCelsius);

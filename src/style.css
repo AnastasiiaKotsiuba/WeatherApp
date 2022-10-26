@@ -99,3 +99,8 @@ form {
   width: 40%;
   height: 40%;
 }
+
+.linkGit {
+  font-size: 13px;
+  opacity: 50%;
+}
