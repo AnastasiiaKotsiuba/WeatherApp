@@ -22,6 +22,36 @@ function currentDates() {
   text.innerHTML = `${day} ${hour}:${minutes}`;
 }
 
+function weatherTemplate() {
+  let forecastElement = document.querySelector("#template-forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+  
+            <div class="col-2">
+              <div class="cards">
+                <div class="day-of-week">${day}</div>
+                <img
+                  src="http://openweathermap.org/img/wn/04d@2x.png"
+                  alt="cloudy"
+                  width="42"
+                />
+                <div class="temp-forecast">
+                  <span class="forecast-temp-max">18°</span>
+                  <span class="forecast-temp-min">-7°</span>
+                </div>
+              </div>
+            </div>
+          
+          `;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 currentDates();
 
 function searchCity(event) {
@@ -120,3 +150,5 @@ function changeOneCelsius() {
 
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", changeOneCelsius);
+
+weatherTemplate();
