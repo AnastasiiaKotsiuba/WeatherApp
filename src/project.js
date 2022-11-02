@@ -22,7 +22,11 @@ function currentDates() {
   text.innerHTML = `${day} ${hour}:${minutes}`;
 }
 
-function weatherTemplate() {
+currentDates();
+
+function weatherTemplate(response) {
+  console.log(response.data.daily);
+  let maxTemp = Math.round(response.data.daily[0].temp.max);
   let forecastElement = document.querySelector("#template-forecast");
   let forecastHTML = `<div class="row">`;
   let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -40,7 +44,7 @@ function weatherTemplate() {
                   width="42"
                 />
                 <div class="temp-forecast">
-                  <span class="forecast-temp-max">18°</span>
+                  <span class="forecast-temp-max">${maxTemp}</span>
                   <span class="forecast-temp-min">-7°</span>
                 </div>
               </div>
@@ -52,7 +56,11 @@ function weatherTemplate() {
   forecastElement.innerHTML = forecastHTML;
 }
 
-currentDates();
+function getForecast(coordinates) {
+  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(weatherTemplate);
+}
 
 function searchCity(event) {
   event.preventDefault();
@@ -94,6 +102,8 @@ function changeWeather(response) {
     "src",
     `http://openweathermap.org/img/wn/${icon}@2x.png`
   );
+
+  getForecast(response.data.coord);
 }
 
 function currentTemp(response) {
@@ -150,5 +160,3 @@ function changeOneCelsius() {
 
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", changeOneCelsius);
-
-weatherTemplate();
