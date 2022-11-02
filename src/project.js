@@ -24,33 +24,47 @@ function currentDates() {
 
 currentDates();
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
 function weatherTemplate(response) {
-  console.log(response.data.daily);
-  let maxTemp = Math.round(response.data.daily[0].temp.max);
   let forecastElement = document.querySelector("#template-forecast");
   let forecastHTML = `<div class="row">`;
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  let forecast = response.data.daily;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
   
             <div class="col-2">
               <div class="cards">
-                <div class="day-of-week">${day}</div>
+                <div class="day-of-week">${formatDay(forecastDay.dt)}</div>
                 <img
-                  src="http://openweathermap.org/img/wn/04d@2x.png"
+                  src="http://openweathermap.org/img/wn/${
+                    forecastDay.weather[0].icon
+                  }@2x.png"
                   alt="cloudy"
                   width="42"
                 />
                 <div class="temp-forecast">
-                  <span class="forecast-temp-max">${maxTemp}</span>
-                  <span class="forecast-temp-min">-7°</span>
+                  <span class="forecast-temp-max">${Math.round(
+                    forecastDay.temp.max
+                  )}°</span>
+                  <span class="forecast-temp-min">${Math.round(
+                    forecastDay.temp.min
+                  )}°</span>
                 </div>
               </div>
             </div>
           
           `;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
@@ -73,10 +87,9 @@ function searchCity(event) {
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", searchCity);
 
-function getWeather(value) {
+function getWeather(city) {
   let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
   let units = "metric";
-  let city = value;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(changeWeather);
 }
@@ -160,3 +173,5 @@ function changeOneCelsius() {
 
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", changeOneCelsius);
+
+getWeather("Kyiv");
